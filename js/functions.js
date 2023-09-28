@@ -1,4 +1,5 @@
 const compareLineLength = (line, maxLength) => (line.length <= maxLength);
+compareLineLength('проверяемая строка', 20);
 
 const checkPalindrome = (line) => {
   const normalizedLine = line.replaceAll(' ', '').toLowerCase();
@@ -9,6 +10,7 @@ const checkPalindrome = (line) => {
   }
   return true;
 };
+checkPalindrome('топот');
 
 const getNumberFromLine = (line) => {
   let collectedNumber = '';
@@ -20,3 +22,4 @@ const getNumberFromLine = (line) => {
   }
   return parseInt(collectedNumber, 10);
 };
+getNumberFromLine('ECMAScript 2022');
