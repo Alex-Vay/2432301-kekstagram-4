@@ -23,3 +23,17 @@ const getNumberFromLine = (line) => {
   return parseInt(collectedNumber, 10);
 };
 getNumberFromLine('ECMAScript 2022');
+
+const isMeetingWithinWorkday = (startWorkday, endWorkday, startMeeting, durationMinutes) => {
+  const timeToMinutes = (time) => {
+    const [hours, minutes] = time.split(':').map(Number);
+    return hours * 60 + minutes;
+  };
+
+  const startWorkdayMinutes = timeToMinutes(startWorkday);
+  const endWorkdayMinutes = timeToMinutes(endWorkday);
+  const startMeetingMinutes = timeToMinutes(startMeeting);
+  const endMeetingMinutes = startMeetingMinutes + durationMinutes;
+  return startWorkdayMinutes <= startMeetingMinutes && endMeetingMinutes <= endWorkdayMinutes;
+};
+isMeetingWithinWorkday('8:00', '17:30', '08:00', 900);
