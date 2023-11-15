@@ -54,7 +54,7 @@ const getCommentId = getOrdinalNumber();
 
 const getRandomComment = () => ({
   id: getCommentId(),
-  avatar: `imag/avatar-${getRandomInteger(1, AVATAR_COUNT)}.svg`,
+  avatar: `img/avatar-${getRandomInteger(1, AVATAR_COUNT)}.svg`,
   message: Array.from({length: getRandomInteger(1, MAX_MESSAGE_LENGTH)}, () => getRandomArrayElement(MESSAGE_TEXT)).join(' '),
   name: getRandomArrayElement(NAMES),
 });
