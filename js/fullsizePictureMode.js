@@ -1,8 +1,11 @@
 import {isEscapeKey} from './util.js';
+import {NUMBER_LOADED_COMMENTS} from './data.js';
 
 const fullsizePicture = document.querySelector('.big-picture');
 const body = document.body;
 const closeButton = fullsizePicture.querySelector('#picture-cancel');
+const loaderButton = fullsizePicture.querySelector('.comments-loader');
+const currentComments = fullsizePicture.querySelector('.current-comments');
 
 const fillComments = (comments) => {
   const commentsContainer = fullsizePicture.querySelector('.social__comments');
@@ -14,6 +17,7 @@ const fillComments = (comments) => {
     clonedComment.querySelector('.social__picture').src = avatar;
     clonedComment.querySelector('.social__picture').alt = name;
     clonedComment.querySelector('.social__text').textContent = message;
+    clonedComment.classList.add('hidden');
     fragment.append(clonedComment);
   });
   commentsContainer.innerHTML = '';
@@ -26,11 +30,27 @@ const closePicture = () => {
   document.removeEventListener('keydown', closeByEscape);
 };
 
-function closeByEscape() { //function использована так как до создания функции, а это нужно чтобы эта и closePicture функции не закольцовывались
+function closeByEscape() { //function должна использоваться как бы совместно с closePicture, иначе они закольцуются, то есть нужно (всплытие)
   if (isEscapeKey) {
     closePicture();
   }
 }
+
+const openComments = () => {
+  const hiddenComments = fullsizePicture.querySelectorAll('.social__comment.hidden');
+  let commentsNumber = NUMBER_LOADED_COMMENTS;
+  const hiddenCommentsNumber = hiddenComments.length;
+  if (hiddenCommentsNumber < NUMBER_LOADED_COMMENTS) {
+    commentsNumber = hiddenCommentsNumber;
+  }
+  currentComments.textContent = Number(currentComments.textContent) + commentsNumber;
+  for (let i = 0; i < commentsNumber; i++) {
+    hiddenComments[i].classList.remove('hidden');
+  }
+  if (hiddenCommentsNumber - commentsNumber === 0) {
+    fullsizePicture.querySelector('.comments-loader').classList.add('hidden');
+  }
+};
 
 const openPicture = (picture) =>{
   body.classList.add('modal-open');
@@ -41,8 +61,10 @@ const openPicture = (picture) =>{
   fullsizePicture.querySelector('.comments-count').textContent = comments.length;
   fillComments(picture.comments);
   fullsizePicture.querySelector('.social__caption').textContent = description;
-  fullsizePicture.querySelector('.social__comment-count').classList.add('hidden');
-  fullsizePicture.querySelector('.comments-loader').classList.add('hidden');
+  fullsizePicture.querySelector('.comments-loader').classList.remove('hidden');
+  currentComments.textContent = 0;
+  openComments();
+  loaderButton.addEventListener('click', openComments);
   closeButton.addEventListener('click', closePicture);
   document.addEventListener('keydown', closeByEscape);
 };
