@@ -1,5 +1,8 @@
 import {isEscapeKey} from './util.js';
-import {NUMBER_LOADED_COMMENTS} from './data.js';
+
+const NUMBER_LOADED_COMMENTS = 5;
+const AVATAR_WIDTH = 35;
+const AVATAR_HEIGHT = 35;
 
 const fullsizePicture = document.querySelector('.big-picture');
 const body = document.body;
@@ -7,18 +10,30 @@ const closeButton = fullsizePicture.querySelector('#picture-cancel');
 const loaderButton = fullsizePicture.querySelector('.comments-loader');
 const currentComments = fullsizePicture.querySelector('.current-comments');
 
+const createComment = ({avatar, message, name}) => {
+  const comment = document.createElement('li');
+  const commentPicture = document.createElement('img');
+  const p = document.createElement('p');
+  commentPicture.classList.add('social__picture');
+  commentPicture.src = avatar;
+  commentPicture.alt = name;
+  commentPicture.width = AVATAR_WIDTH;
+  commentPicture.height = AVATAR_HEIGHT;
+  p.classList.add('social__text');
+  p.textContent = message;
+  comment.classList.add('social__comment');
+  comment.classList.add('hidden');
+  comment.append(commentPicture);
+  comment.append(p);
+  return comment;
+};
+
 const fillComments = (comments) => {
   const commentsContainer = fullsizePicture.querySelector('.social__comments');
-  const commentTemplate = fullsizePicture.querySelector('.social__comment');
   const fragment = document.createDocumentFragment();
   comments.forEach((comment) => {
-    const clonedComment = commentTemplate.cloneNode(true);
-    const {avatar, name, message} = comment;
-    clonedComment.querySelector('.social__picture').src = avatar;
-    clonedComment.querySelector('.social__picture').alt = name;
-    clonedComment.querySelector('.social__text').textContent = message;
-    clonedComment.classList.add('hidden');
-    fragment.append(clonedComment);
+    const newComment = createComment(comment);
+    fragment.append(newComment);
   });
   commentsContainer.innerHTML = '';
   commentsContainer.append(fragment);
@@ -27,7 +42,7 @@ const fillComments = (comments) => {
 const closePicture = () => {
   body.classList.remove('modal-open');
   fullsizePicture.classList.add('hidden');
-  document.removeEventListener('keydown', closeByEscape);
+  document.addEventListener('keydown', closeByEscape);
 };
 
 function closeByEscape() { //function должна использоваться как бы совместно с closePicture, иначе они закольцуются, то есть нужно (всплытие)
