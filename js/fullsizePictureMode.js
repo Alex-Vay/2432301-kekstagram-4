@@ -1,31 +1,23 @@
 import {isEscapeKey} from './util.js';
 
 const NUMBER_LOADED_COMMENTS = 5;
-const AVATAR_WIDTH = 35;
-const AVATAR_HEIGHT = 35;
 
 const fullsizePicture = document.querySelector('.big-picture');
 const body = document.body;
 const closeButton = fullsizePicture.querySelector('#picture-cancel');
 const loaderButton = fullsizePicture.querySelector('.comments-loader');
 const currentComments = fullsizePicture.querySelector('.current-comments');
+const commentTemplate = document.querySelector('#social__comment').content.querySelector('.social__comment');
 
-const createComment = ({avatar, message, name}) => {
-  const comment = document.createElement('li');
-  const commentPicture = document.createElement('img');
-  const p = document.createElement('p');
-  commentPicture.classList.add('social__picture');
-  commentPicture.src = avatar;
-  commentPicture.alt = name;
-  commentPicture.width = AVATAR_WIDTH;
-  commentPicture.height = AVATAR_HEIGHT;
-  p.classList.add('social__text');
-  p.textContent = message;
-  comment.classList.add('social__comment');
-  comment.classList.add('hidden');
-  comment.append(commentPicture);
-  comment.append(p);
-  return comment;
+
+const createComment = (comment) => {
+  const clonedComment = commentTemplate.cloneNode(true);
+  const {avatar, name, message} = comment;
+  clonedComment.querySelector('.social__picture').src = avatar;
+  clonedComment.querySelector('.social__picture').alt = name;
+  clonedComment.querySelector('.social__text').textContent = message;
+  clonedComment.classList.add('hidden');
+  return clonedComment;
 };
 
 const fillComments = (comments) => {
