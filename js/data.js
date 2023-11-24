@@ -8,7 +8,7 @@ const MAX_COMMENTS = 30;
 const AVATAR_COUNT = 6;
 const MAX_MESSAGE_LENGTH = 2;
 
-const DESCRIPTION_TEXT = [
+const DESCRIPTION_TEXTS = [
   'В этом кадре я чувствую себя, как будто путешествую на самом деле.',
   'Мне повезло поймать этот момент на фото, это было настоящее счастье.',
   'Я не могу перестать восхищаться деталями и текстурой на этой фотографии.',
@@ -21,7 +21,7 @@ const DESCRIPTION_TEXT = [
   'Это фото - маленькое чудо, которое мне удается нести с собой.',
 ];
 
-const MESSAGE_TEXT = [
+const MESSAGE_TEXTS = [
   'Всё отлично!',
   'В целом всё неплохо. Но не всё.',
   'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
@@ -55,14 +55,14 @@ const getCommentId = getOrdinalNumber();
 const getRandomComment = () => ({
   id: getCommentId(),
   avatar: `img/avatar-${getRandomInteger(1, AVATAR_COUNT)}.svg`,
-  message: Array.from({length: getRandomInteger(1, MAX_MESSAGE_LENGTH)}, () => getRandomArrayElement(MESSAGE_TEXT)).join(' '),
+  message: Array.from({length: getRandomInteger(1, MAX_MESSAGE_LENGTH)}, () => getRandomArrayElement(MESSAGE_TEXTS)).join(' '),
   name: getRandomArrayElement(NAMES),
 });
 
 const createPicturePost = () => ({
   id: getPictureId(),
   url: `photos/${getUrlId()}.jpg`,
-  description: getRandomArrayElement(DESCRIPTION_TEXT),
+  description: getRandomArrayElement(DESCRIPTION_TEXTS),
   likes: getRandomInteger(MIN_LIKES, MAX_LIKES),
   comments: Array.from({length: getRandomInteger(MIN_COMMENTS, MAX_COMMENTS)}, () => getRandomComment()),
 });
