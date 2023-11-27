@@ -1,6 +1,6 @@
 import {isEscapeKey} from './util.js';
+import {NUMBER_LOADED_COMMENTS} from './data.js';
 
-const NUMBER_LOADED_COMMENTS = 5;
 
 const fullsizePicture = document.querySelector('.big-picture');
 const body = document.body;
@@ -34,6 +34,7 @@ const fillComments = (comments) => {
 const closePicture = () => {
   body.classList.remove('modal-open');
   fullsizePicture.classList.add('hidden');
+  closeButton.removeEventListener('click', closePicture);
   document.removeEventListener('keydown', closeByEscape);
 };
 
