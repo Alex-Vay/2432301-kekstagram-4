@@ -8,6 +8,8 @@ const MAX_COMMENTS = 30;
 const AVATAR_COUNT = 6;
 const MAX_MESSAGE_LENGTH = 2;
 const NUMBER_LOADED_COMMENTS = 5;
+const MAX_SYMBOLS_COMMENT_LENGTH = 140;
+const MAX_HASHTAGS_COUNT = 5;
 
 const DESCRIPTION_TEXTS = [
   'В этом кадре я чувствую себя, как будто путешествую на самом деле.',
@@ -70,4 +72,4 @@ const createPicturePost = () => ({
 
 const createPicturePosts = () => Array.from({length: PICTURES_COUNT}, () => createPicturePost());
 
-export {createPicturePosts, NUMBER_LOADED_COMMENTS};
+export {createPicturePosts, NUMBER_LOADED_COMMENTS, MAX_SYMBOLS_COMMENT_LENGTH, MAX_HASHTAGS_COUNT};
