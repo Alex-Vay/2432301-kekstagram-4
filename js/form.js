@@ -77,5 +77,6 @@ form.addEventListener('submit', (evt) => {
   evt.preventDefault();
   if (pristine.validate()) {
     closeOverlay();
+    evt.target.reset();
   }
 });
