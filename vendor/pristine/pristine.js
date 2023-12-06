@@ -185,10 +185,10 @@
             for (var i = 0; fields[i]; i++) {
                 var field = fields[i];
                 if (_validateField(field)) {
-                    !silent && _showSuccess(field);
+                    !silent && _showSuccessMessage(field);
                 } else {
                     valid = false;
-                    !silent && _showError(field);
+                    !silent && _showErrorMessage(field);
                 }
             }
             return valid;
@@ -300,7 +300,7 @@
             return field.errorElements = [errorClassElement, errorTextElement];
         }
 
-        function _showError(field) {
+        function _showErrorMessage(field) {
             var errorElements = _getErrorElements(field);
             var errorClassElement = errorElements[0],
                 errorTextElement = errorElements[1];
@@ -323,7 +323,7 @@
         self.addError = function (input, error) {
             input = input.length ? input[0] : input;
             input.pristine.errors.push(error);
-            _showError(input.pristine);
+            _showErrorMessage(input.pristine);
         };
 
         function _removeError(field) {
@@ -342,7 +342,7 @@
             return errorElements;
         }
 
-        function _showSuccess(field) {
+        function _showSuccessMessage(field) {
             var errorClassElement = _removeError(field)[0];
             errorClassElement && errorClassElement.classList.add(self.config.successClass);
         }
