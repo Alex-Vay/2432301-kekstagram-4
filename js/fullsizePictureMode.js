@@ -1,6 +1,6 @@
 import {isEscapeKey} from './util.js';
-import {NUMBER_LOADED_COMMENTS} from './data.js';
 
+const NUMBER_LOADED_COMMENTS = 5;
 
 const fullsizePicture = document.querySelector('.big-picture');
 const body = document.body;
@@ -38,8 +38,8 @@ const closePicture = () => {
   document.removeEventListener('keydown', closeByEscape);
 };
 
-function closeByEscape() { //function должна использоваться как бы совместно с closePicture, иначе они закольцуются, то есть нужно (всплытие)
-  if (isEscapeKey) {
+function closeByEscape(evt) { //function должна использоваться как бы совместно с closePicture, иначе они закольцуются, то есть нужно (всплытие)
+  if (isEscapeKey(evt)) {
     closePicture();
   }
 }
