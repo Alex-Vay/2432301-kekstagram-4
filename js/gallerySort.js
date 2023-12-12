@@ -8,35 +8,35 @@ const defaultfFilter = document.querySelector('#filter-default');
 const randomFilter = document.querySelector('#filter-random');
 const discussedFilter = document.querySelector('#filter-discussed');
 
-const comparePhotosByComments = (photoA, photoB) => photoB.comments.length - photoA.comments.length;
-const getSortedPhoto = (photo) => photo.slice().sort(comparePhotosByComments);
+const comparePictureByComments = (pictureA, pictureB) => pictureB.comments.length - pictureA.comments.length;
+const getSortedPictures = (pictures) => pictures.slice().sort(comparePictureByComments);
 
-const removePhotos = () => {
-  const picture = document.querySelectorAll('.picture');
-  picture.forEach((photo) => {
-    photo.remove();
+const removePictures = () => {
+  const pictures = document.querySelectorAll('.picture');
+  pictures.forEach((picture) => {
+    picture.remove();
   });
 };
 
-const changePhoto = (array, button) => {
-  removePhotos();
+const changePictures = (array, button) => {
+  removePictures();
   const active = document.querySelector('.img-filters__button--active');
   active.classList.remove('img-filters__button--active');
   renderPictures(array);
   button.classList.add('img-filters__button--active');
 };
 
-const showFilteredPhotos = (photos) => {
-  renderPictures(photos);
+const showFilteredPhotos = (picture) => {
+  renderPictures(picture);
   filterSection.classList.remove('img-filters--inactive');
   defaultfFilter.addEventListener('click', debounce(() => {
-    changePhoto(photos, defaultfFilter);
+    changePictures(picture, defaultfFilter);
   }));
   randomFilter.addEventListener('click', debounce(() => {
-    changePhoto(getUniqueRandomElementsArray(photos, AMOUNT_RANDOM_PICTURES), randomFilter);
+    changePictures(getUniqueRandomElementsArray(picture, AMOUNT_RANDOM_PICTURES), randomFilter);
   }));
   discussedFilter.addEventListener('click', debounce(() => {
-    changePhoto(getSortedPhoto(photos), discussedFilter);
+    changePictures(getSortedPictures(picture), discussedFilter);
   }));
 };
 
