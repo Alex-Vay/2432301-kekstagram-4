@@ -88,13 +88,13 @@ const validateHashtags = (value) => value.trim() === '' ? true : normalizeHashta
 
 const validateHashtagsUniqueness  = (value) => {
   const hashtags = normalizeHashtags(value.toLowerCase());
-  const tempArr = [];
+  const tempElements = [];
   for (let i = 0; i < hashtags.length; i++){
-    if(tempArr.includes(hashtags[i])){
+    if(tempElements.includes(hashtags[i])){
       return false;
     }
     else {
-      tempArr.push(hashtags[i]);
+      tempElements.push(hashtags[i]);
     }
   }
   return true;

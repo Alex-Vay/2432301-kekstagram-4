@@ -9,13 +9,13 @@ const getRandomInteger = (min, max) => {
 
 const getUniqueRandomElementsArray = (photos, count) => {
   const copiedArray = photos.slice();
-  const uniqueElementsArray = [];
+  const uniqueElements = [];
   for (let i = 0; i < count; i++) {
     const randomIndex = getRandomInteger(0, copiedArray.length - 1);
-    uniqueElementsArray.push(copiedArray[randomIndex]);
+    uniqueElements.push(copiedArray[randomIndex]);
     copiedArray.splice(randomIndex, 1);
   }
-  return uniqueElementsArray;
+  return uniqueElements;
 };
 
 const isEscapeKey = (evt) => evt.key === 'Escape';
