@@ -5,6 +5,7 @@ import {showSuccessMessage, showErrorMessage} from './formMessage.js';
 const MAX_SYMBOLS_COMMENT_LENGTH = 140;
 const MAX_HASHTAGS_COUNT = 5;
 const FILE_TYPES = ['png', 'gif', 'jpg', 'jpeg'];
+const REGEXP_HASHTAG = /^#[a-zа-яё0-9]{1,19}$/i;
 
 const body = document.body;
 const form = document.querySelector('.img-upload__form');
@@ -18,7 +19,6 @@ const submitButton = form.querySelector('.img-upload__submit');
 const pictureFile = document.querySelector('.img-upload__start input[type=file]');
 const effectsPreviews = document.querySelectorAll('.effects__list span');
 
-const hashtagRegExp = /^#[a-zа-яё0-9]{1,19}$/i;
 const pristine = new Pristine(form, {
   classTo: 'img-upload__field-wrapper',
   errorClass: 'img-upload--invalid',
@@ -84,7 +84,7 @@ const normalizeHashtags = (hashtagsString) => hashtagsString.trim().split(' ').f
 
 const validateHashtagsCount = (value) => normalizeHashtags(value).length <= MAX_HASHTAGS_COUNT;
 
-const validateHashtags = (value) => value.trim() === '' ? true : normalizeHashtags(value).every((hashtag) => hashtagRegExp.test(hashtag));
+const validateHashtags = (value) => value.trim() === '' ? true : normalizeHashtags(value).every((hashtag) => REGEXP_HASHTAG.test(hashtag));
 
 const validateHashtagsUniqueness  = (value) => {
   const hashtags = normalizeHashtags(value.toLowerCase());
